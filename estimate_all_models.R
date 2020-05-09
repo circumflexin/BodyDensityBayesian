@@ -1,5 +1,5 @@
-dataDir <- "E:\\postdoc\\body_density\\manuscripts\\body_density_manual\\BodyDensity_Rmodels\\data\\"
-modelDir <- "E:\\postdoc\\body_density\\manuscripts\\body_density_manual\\BodyDensity_Rmodels\\"
+dataDir <- "E:\\Projects\\body_density_manual\\GitHub\\Private\\"
+modelDir <- "E:\\Projects\\body_density_manual\\GitHub\\"
 
 setwd(modelDir)
 
@@ -11,12 +11,12 @@ set.seed(0)
   # -> defines "fitName" that is used to store model output in working directory
   # store filtered data & the names of whales and dives that are included
 
-  load("all_whales.Rd")
+  load(paste(dataDir,"all_whales.Rd",sep=""))
 
   filterBool <- abs(tab$mean.pitch)>30 & tab$dive.max.depth>100 & abs(tab$phase)>0 & is.na(tab$acceleration)==F &
     is.na(tab$mean.speed)==F & tab$r.roll>0.9  & is.na(tab$DswGG)==F
                 #& tab$mean.depth>200 & tab$sonar==0 & tab$vertglide==1
-  tab <- tab[filterBool,]       
+  tab <- tab[filterBool & !is.na(filterBool),]       
   
   fitName <- "_f_pitch30_depth100"
 
