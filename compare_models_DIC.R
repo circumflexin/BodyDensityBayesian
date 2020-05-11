@@ -255,33 +255,26 @@ options(graphics.record=TRUE)
 
 par(mfrow=c(1,1), mar=c(5, 5, 2, 2))
 
-  ord<-order(rtab$DIC)
-  xx<-c("BD", "CdAM", "Vair")
-  xBD<-rep(1, length(rtab$DIC))
-  xCd<-rep(2, length(rtab$DIC))
-  xVair<-rep(3, length(rtab$DIC))
-  leg<-c("global only", "global+indiv", "global+dive")
-  
-  rtab$BD.pch <- 1*(rtab$BD.type=="I")+15*(rtab$BD.type=="G")
-  rtab$CdAM.pch <- 1*(rtab$CdAM.type=="I")+15*(rtab$CdAM.type=="G")
-  rtab$Vair.pch <- 1*(rtab$Vair.type=="I")+15*(rtab$Vair.type=="G")+17*(rtab$Vair.type=="D")
-  
-  plot(xBD, 1:length(rtab$DIC), pch=rtab$BD.pch[ord], 
-       xlab="", ylab="", xlim=c(0.5, 4.7), yaxt="n", xaxt="n", main="parameters")
-  grid(lwd=1.5, col="gray")
-  points(xCd, 1:length(rtab$DIC), pch=rtab$CdAM.pch[ord])
-  points(xVair, 1:length(rtab$DIC), pch=rtab$Vair.pch[ord])
-  axis(2, at=1:length(rtab$DIC), rtab$model[ord], las=2)
-  axis(1, at=1:3, xx, las=2)
-  legend(3.3, length(rtab$DIC), leg[1:3], pch=c(1, 15, 17), cex=0.8)
-  
+ord<- order(rtab$DIC)
+xx<-c("BD", "CdAM", "Vair")
+xBD<-rep(1, length(rtab$DIC))
+xCd<-rep(2, length(rtab$DIC))
+xVair<-rep(3, length(rtab$DIC))
+leg<-c("global only", "global+indiv", "global+dive")
+
+rtab$BD.pch <- 1*(rtab$BD.type=="G")+15*(rtab$BD.type=="I")
+rtab$CdAM.pch <- 1*(rtab$CdAM.type=="G")+15*(rtab$CdAM.type=="I")
+rtab$Vair.pch <- 1*(rtab$Vair.type=="G")+15*(rtab$Vair.type=="I")+17*(rtab$Vair.type=="D")
+
+plot(xBD, 1:length(rtab$DIC), pch=rtab$BD.pch[ord], 
+     xlab="", ylab="", xlim=c(0.5, 4.7), yaxt="n", xaxt="n", main="parameters")
+grid(lwd=1.5, col="gray")
+points(xCd, 1:length(rtab$DIC), pch=rtab$CdAM.pch[ord])
+points(xVair, 1:length(rtab$DIC), pch=rtab$Vair.pch[ord])
+axis(2, at=1:length(rtab$DIC), rtab$model[ord], las=2)
+axis(1, at=1:3, xx, las=2)
+legend(3.3, length(rtab$DIC), leg[1:3], pch=c(1, 15, 17), cex=0.8)
+
 
 options(graphics.record=FALSE)      
 dev.off() 
-
-
-
-
-
-
-
