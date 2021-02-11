@@ -1,8 +1,8 @@
 
 # make trajectory plots for the selected model
-
-dataDir <- "E:\\postdoc\\body_density\\manuscripts\\body_density_manual\\BodyDensity_Rmodels\\data\\"
-modelDir <- "E:\\postdoc\\body_density\\manuscripts\\body_density_manual\\BodyDensity_Rmodels\\"
+#dataDir <- "D:\\Analysis\\SW sonar chapter\\Body Density Analysis\\Bayesian_BC\\data\\"
+modelDir <- "D:\\Analysis\\SW sonar chapter\\statistical_analysis\\data\\body_density\\"
+downstreamDir = modelDir
 
 setwd(modelDir)
 
@@ -12,8 +12,8 @@ set.seed(0)
 
 # Select model
 
-fitName <- "_f_pitch30_depth100"      # name of the fit, based on selection of "good glides"
-modelName <- "model(12)"              # insert best model name here
+fitName <- "_f_pitch30_depth100_rpitch999_thinned"      # name of the fit, based on selection of "good glides"
+modelName <- "model(SW12)"              # insert best model name here
 
 # Load modelled data and model results
 
@@ -84,7 +84,8 @@ myPlots <- function(fit, par.name, titles="", diag=T) {
 
 
 
-pdf(paste("plot_best_", modelName, "_tracehistories.pdf", sep=""), width=10,height=5)
+pdf(paste(downstreamDir,"plot_best_", modelName, "_tracehistories.pdf", sep=""), width=10,height=5)
+
 options(graphics.record=TRUE)
 
 

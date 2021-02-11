@@ -1,9 +1,9 @@
 ############ Make plots to compare 12 models###############
 ######### and, make a plot of model type ##########
 
-dataDir <- "E:\\postdoc\\body_density\\manuscripts\\body_density_manual\\BodyDensity_Rmodels\\data\\"
-modelDir <- "E:\\postdoc\\body_density\\manuscripts\\body_density_manual\\BodyDensity_Rmodels\\"
-
+# dataDir <- "D:\\Analysis\\SW sonar chapter\\Body Density Analysis\\Bayesian_BC\\data\\"
+modelDir <- "D:\\Analysis\\SW sonar chapter\\statistical_analysis\\data\\body_density\\"
+downstreamDir = modelDir
 setwd(modelDir)
 
 library(R2jags)
@@ -11,9 +11,9 @@ set.seed(0)
 
 # Select fitted models
 
-  fitName <- "_f_pitch30_depth100"                     # name of the fit, based on selection of "good glides"
+  fitName <- "_f_pitch30_depth100_rpitch999_thinned"                     # name of the fit, based on selection of "good glides"
   modNum <- 1:12                                       # model numbers 
-  modelName <- c(paste("model(", modNum, ")", sep="")) # model names used to store model output
+  modelName <- c(paste("model(SW", modNum, ")", sep="")) # model names used to store model output
 
 # Load modelled data
 
@@ -153,7 +153,7 @@ for(m in 1:length(modelName)) {
 
 ##### Make plots to compare 12 models
   
-pdf("compare_models.pdf", width=4.5,height=6.5)        
+pdf(paste(downstreamDir,"compare_models.pdf",sep=""), width=4.5,height=6.5)        
 options(graphics.record=TRUE)
 
 
@@ -250,7 +250,7 @@ dev.off()
 
 ########### Make a plot of model type ###################
 
-pdf("model_parameters.pdf", width=4.5,height=6.5)
+pdf(paste(downstreamDir,"model_parameters.pdf",sep=""), width=4.5,height=6.5)
 options(graphics.record=TRUE)
 
 par(mfrow=c(1,1), mar=c(5, 5, 2, 2))

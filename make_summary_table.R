@@ -1,7 +1,8 @@
 ######## Make summary table for estimates of the selected model
 
-dataDir <- "E:\\postdoc\\body_density\\manuscripts\\body_density_manual\\BodyDensity_Rmodels\\data\\"
-modelDir <- "E:\\postdoc\\body_density\\manuscripts\\body_density_manual\\BodyDensity_Rmodels\\"
+modelDir <- "D:\\Analysis\\SW sonar chapter\\statistical_analysis\\data\\body_density\\"
+downstreamDir = modelDir
+
 
 setwd(modelDir)
 
@@ -9,8 +10,8 @@ library(R2jags)
 
 # Select model
 
-fitName <- "_f_pitch30_depth100"      # name of the fit, based on selection of "good glides"
-modelName <- "model(12)"              # insert best model name here
+fitName <- "_f_pitch30_depth100_rpitch999_thinned"      # name of the fit, based on selection of "good glides"
+modelName <- "model(SW12)"              # insert best model name here
 
 # Load modelled data and model results
 
@@ -30,7 +31,7 @@ load(paste(modelName, fitName, ".Rd", sep=""))
   summary.g$range95 <- summary.g$U95-summary.g$L95
   summary.g <- signif(summary.g, digits=3)
   
-  write.csv(summary.g, file=paste(modelDir, modelName, fitName, "_Estimates_global.csv", sep=""))
+  write.csv(summary.g, file=paste(downstreamDir, modelName, fitName, "_Estimates_global.csv", sep=""))
 
 ### make summary table for WHALE-BY-WHALE mean
   
@@ -40,14 +41,14 @@ load(paste(modelName, fitName, ".Rd", sep=""))
     summary.indiv[j,2]<-sum(tab$whale.id==fit.whales[j])    #Number of glides used for the model 
   }
   
-  # when the selected model include indiv-specific Vair  
+  # when the selected model include indiv-specific body density
   if(ncol(fit$BUGSoutput$sims.list$body.density)==length(fit.whales)){  
     
     tempresult <- data.frame(fit$BUGSoutput$summary[paste("body.density[",1:length(fit.whales),"]", sep=""),
                                          c("mean", "2.5%", "97.5%")])
     colnames(tempresult)[1:3] <- c("BD.mean", "BD.L95", "BD.U95")
-    tempresult$BD.range95 <- signif(tempresult[,3]-tempresult[,2],digits=5)
-    tempresult[,1:2] <- signif(tempresult[,1:2], digits=5)
+    tempresult$BD.range95 <- signif(tempresult[,3]-tempresult[,2],digits=3)
+    tempresult[,1:3] <- signif(tempresult[,1:3], digits=7)
     summary.indiv <- cbind(summary.indiv, tempresult)         
   }           
   
@@ -57,8 +58,8 @@ load(paste(modelName, fitName, ".Rd", sep=""))
       tempresult <- data.frame(fit$BUGSoutput$summary[paste("CdAM[",1:length(fit.whales),"]", sep=""),
                                                       c("mean", "2.5%", "97.5%")])
       colnames(tempresult)[1:3] <- c("CdAM.mean", "CdAM.L95", "CdAM.U95")
-      tempresult$CdAM.range95 <- signif(tempresult[,3]-tempresult[,2],digits=3)
-      tempresult[,1:2] <- signif(tempresult[,1:2], digits=3)
+      tempresult$CdAM.range95 <- round(tempresult[,3]-tempresult[,2],3)
+      tempresult[,1:3] <- round(tempresult[,1:3], 3)
       summary.indiv <- cbind(summary.indiv, tempresult)  
     }
     
@@ -68,12 +69,12 @@ load(paste(modelName, fitName, ".Rd", sep=""))
     tempresult <- data.frame(fit$BUGSoutput$summary[paste("Vair.d[",1:length(fit.whales),"]", sep=""),
                                                     c("mean", "2.5%", "97.5%")])
     colnames(tempresult)[1:3] <- c("Vair.mean", "Vair.L95", "Vair.U95")
-    tempresult$Vair.range95 <- signif(tempresult[,3]-tempresult[,2],digits=3)
-    tempresult[,1:2] <- signif(tempresult[,1:2], digits=3)
+    tempresult$Vair.range95 <- round(tempresult[,3]-tempresult[,2],3)
+    tempresult[,1:3] <- round(tempresult[,1:3], digits=3)
     summary.indiv <- cbind(summary.indiv, tempresult)  
   }
     
-write.csv(summary.indiv, file=paste(modelDir, modelName, fitName, "_Estimates_indiv.csv", sep=""))
+write.csv(summary.indiv, file=paste(downstreamDir, modelName, fitName, "_Estimates_indiv.csv", sep=""))
 
 
 ### make summary table for DIVE-BY-DIVE mean
@@ -96,11 +97,11 @@ write.csv(summary.indiv, file=paste(modelDir, modelName, fitName, "_Estimates_in
     tempresult <- data.frame(fit$BUGSoutput$summary[paste("Vair.d[",1:length(fit.dives),"]", sep=""),
                                                     c("mean", "2.5%", "97.5%")])
     colnames(tempresult)[1:3] <- c("Vair.mean", "Vair.L95", "Vair.U95")
-    tempresult$Vair.range95 <- signif(tempresult[,3]-tempresult[,2],digits=3)
-    tempresult[,1:2] <- signif(tempresult[,1:2], digits=3)
+    tempresult$Vair.range95 <- round(tempresult[,3]-tempresult[,2],3)
+    tempresult[,1:3] <- round(tempresult[,1:3], digits=3)
     summary.d <- cbind(summary.d, tempresult)  
     
-    write.csv(summary.d, file=paste(modelDir, modelName, fitName, "_Estimates_dive.csv", sep=""))    
+    write.csv(summary.d, file=paste(downstreamDir, modelName, fitName, "_Estimates_dive.csv", sep=""))    
     
     }
 
