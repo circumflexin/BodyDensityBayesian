@@ -1,15 +1,14 @@
-dataDir <- "E:\\postdoc\\body_density\\manuscripts\\body_density_manual\\BodyDensity_Rmodels\\data\\"
-modelDir <- "E:\\postdoc\\body_density\\manuscripts\\body_density_manual\\BodyDensity_Rmodels\\"
+upstream_dir <- "D:\\Analysis\\SW sonar chapter\\Body Density Analysis\\Glide detection\\Summaries\\"
+downstream_dir <- "D:\\Analysis\\SW sonar chapter\\Body Density Analysis\\Bayesian_BC\\data\\"
 
-setwd(modelDir)
+setwd(downstream_dir)
 
-whales <- c("Ha14_165a", "Ha14_174b", "Ha14_175a")  
-
+whales <- c("sw08_152a","sw09_141a","sw09_142a","sw09_160a","sw10_147a","sw10_149a","sw10_150a","SW16_126a","SW16_131a","SW16_134b","SW16_136a","sw17_179a","sw17_180a","sw17_182a","sw17_182b","sw17_184a","sw17_186a","sw17_186b","sw17_188a","sw17_191a","SW19_241a","SW19_241b","SW19_244a","SW19_245a","SW19_248a","SW19_250b","SW19_253b","SW19_254a","SW19_255b","SW19_255c","SW19_259a" ,"SW19_259b")
 prevMax <- 0
 
 for(w in 1:length(whales)) {
   
-  tab <- read.csv(paste(dataDir, whales[w], ".csv",sep=""))  
+  tab <- read.csv(paste(upstream_dir, whales[w], ".csv",sep=""))  
   
   names(tab) <- c(
     
@@ -36,7 +35,8 @@ for(w in 1:length(whales)) {
     "mean.roll",              # Mean roll angle (deg) during the glide (calculated using circular statistics)     
     "r.roll",                 # Measure of concentration (r) of  roll angles in 5s     
     "mean.heading",           # Mean heading angle (deg) during the glide (calculated using circular statistics)     
-    "r.heading"              # Measure of concentration (r) of  heading angles in 5s
+    "r.heading",              # Measure of concentration (r) of  heading angles in 5s
+    "sg.index"                # Index of the subglide within the larger glide 
   )
   
   tab <- tab[is.na(tab$duration)==F,]
@@ -54,6 +54,6 @@ for(w in 1:length(whales)) {
 
 tab <- tab_new
 
-save(tab, file=paste(modelDir, "all_whales.Rd", sep=""))
+save(tab, file=paste(downstream_dir, "all_whales.Rd", sep=""))
 
 

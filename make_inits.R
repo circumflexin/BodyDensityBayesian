@@ -7,7 +7,7 @@ sp.inits <- function(chain) {
                   
                   compr=0.3,
                   
-                  CdAM.g=5e-06*(10^6),
+                  CdAM.g=3e-06*(10^6),
                   CdAM=rep(5e-06*(10^6), n.CdAM),
                   
                   body.density.g=rep(999,n.body.density.g),
@@ -24,7 +24,7 @@ sp.inits <- function(chain) {
                   
                   compr=0.4,
                   
-                  CdAM.g=6e-06*(10^6),
+                  CdAM.g=7e-06*(10^6),
                   CdAM=rep(6e-06*(10^6), n.CdAM),
                   
                   body.density.g=rep(1010, n.body.density.g),
@@ -42,7 +42,7 @@ sp.inits <- function(chain) {
                   
                   compr=0.6,
                   
-                  CdAM.g=7e-06*(10^6),
+                  CdAM.g=10e-06*(10^6),
                   CdAM=rep(7e-06*(10^6), n.CdAM),
                   
                   body.density.g=rep(1100, n.body.density.g),
